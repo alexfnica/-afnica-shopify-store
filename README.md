@@ -40,6 +40,16 @@ AFNICA Fishroom sells rare and selectively-bred aquarium fish, shrimp, and inver
 - Along the way, verified and fixed smaller data issues: reactivated two archived products that had stock but weren't visible to customers, restocked a plant variant, split a mispriced product into two properly-priced size variants, and removed an unused empty collection.
 - Used a mix of the Shopify Admin GraphQL API (for diagnosis, bulk deletion, and handle fixes) and direct theme code edits (for the final link corrections) — a reminder that AI page builders can leave behind inconsistent state that needs a systematic audit, not just point fixes.
 
+### Navigation & Information Architecture
+- Found that the storefront's navigation had accumulated the same kind of drift as the product catalog: two menu items ("Aquarium Gear" and "Gifts & Gear") pointing to the same empty collection, while the real, populated "Gifts & Gear" collection wasn't linked from the menu at all.
+- Rebuilt the Shop navigation via the Admin API to point every item at its correct collection, renamed items to match actual collection content (e.g. "Plants" → "Aquarium Plants"), and removed a stale, unused collection from the menu entirely.
+- Iterated on menu structure live with the merchant (testing a nested sub-menu under Fish Supplies, then reverting to a flatter structure) — a reminder that navigation depth is a product decision, not just a technical one, and is worth testing before committing.
+
+### Collection Visual Design
+- Iterated through several visual directions for collection card imagery (vintage naturalist-illustration style, then a cleaner editorial layout) based on direct merchant feedback, converging on a bold serif-driven layout matching the theme's actual heading font.
+- Built a lightweight local pipeline (SVG → HTML → rendered PNG, with the theme's brand font embedded) to produce on-brand collection artwork without relying on stock photography or paid tools.
+- Learned the limits of that approach too: hand-illustrated vector art can't match real product photography for shopper trust, so real photos (or a proper AI image generation tool) are the next step for collections like Fish Supplies and Aquarium Care.
+
 ## Tech & Tools
 
 - **Platform:** Shopify (Online Store 2.0)
@@ -62,6 +72,8 @@ AFNICA Fishroom sells rare and selectively-bred aquarium fish, shrimp, and inver
 - Set up basic SEO metadata across product and collection pages.
 - Add a video-background or "bubble" animation to the hero for a more distinctive aquarium feel.
 - Do a full audit of the remaining catalog for similar leftover duplicate/orphaned content, now that the pattern is known.
+- Replace illustrated collection artwork with real product photography (or proper AI-generated imagery) for Fish Supplies, Aquarium Care, and Gifts & Gear.
+- Decide on final Shop navigation depth (flat vs. nested sub-categories) once there's enough product volume to justify sub-menus.
 
 ---
 
