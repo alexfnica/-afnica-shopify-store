@@ -32,6 +32,14 @@ AFNICA Fishroom sells rare and selectively-bred aquarium fish, shrimp, and inver
 ### In Progress
 - A **Gift Cards** feature (fixed denominations: 50 / 100 / 150 / 200 lei) — currently blocked on enabling Shopify's native Gift Cards setting, which requires manual activation in the merchant's admin before gift card products can be created via API.
 
+### Data Cleanup & Bug Investigation
+- Diagnosed a recurring bug where several product cards in the Livestock collection linked to non-existent `/pages/...` URLs instead of their real `/products/...` pages — traced it back to a batch of orphaned, duplicate Shopify Pages (one per fish species) left over from an earlier, incomplete setup process, sharing the same handle as the real products.
+- Deleted 6 orphaned duplicate Pages and 5 stale/incomplete duplicate products (some archived, some draft, some with placeholder pricing) that were cluttering the catalog and, in two cases, forcing the real product onto an ugly auto-suffixed URL (e.g. `-1`).
+- Cleaned up the affected product handles so every Livestock product now has a clean, predictable URL matching its title.
+- Traced the remaining broken card links to manually-set link overrides at the theme block level (not visible from the collection's default template) and corrected them directly in the theme's source code.
+- Along the way, verified and fixed smaller data issues: reactivated two archived products that had stock but weren't visible to customers, restocked a plant variant, split a mispriced product into two properly-priced size variants, and removed an unused empty collection.
+- Used a mix of the Shopify Admin GraphQL API (for diagnosis, bulk deletion, and handle fixes) and direct theme code edits (for the final link corrections) — a reminder that AI page builders can leave behind inconsistent state that needs a systematic audit, not just point fixes.
+
 ## Tech & Tools
 
 - **Platform:** Shopify (Online Store 2.0)
@@ -45,6 +53,7 @@ AFNICA Fishroom sells rare and selectively-bred aquarium fish, shrimp, and inver
 - **Kept membership pricing off the website** since it lives on YouTube and can change; the store only sells the *outcome* (the discount + perks), not a price that could go stale.
 - **Kept the discount code off the site entirely**, distributing it only through YouTube, to preserve it as a genuine member-only perk rather than a public code anyone could grab.
 - **Used the Admin API instead of manual admin work** for repeatable, structured tasks (collections, discounts) to keep the process fast and auditable.
+- **Verified fixes against the live storefront, not just the admin**, after finding that server-rendered HTML and the JavaScript-corrected version customers actually see can disagree — a reminder to test end-to-end rather than trusting a single layer of the stack.
 
 ## What I'd Do Next
 
@@ -52,6 +61,7 @@ AFNICA Fishroom sells rare and selectively-bred aquarium fish, shrimp, and inver
 - Add customer reviews/social proof to the homepage (inspired by competitor benchmarking).
 - Set up basic SEO metadata across product and collection pages.
 - Add a video-background or "bubble" animation to the hero for a more distinctive aquarium feel.
+- Do a full audit of the remaining catalog for similar leftover duplicate/orphaned content, now that the pattern is known.
 
 ---
 
